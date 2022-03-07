@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:tnp/Global/pt.dart';
 import 'package:tnp/Routes/app_routes.dart';
 import 'package:tnp/Global/cores.dart';
+import 'package:tnp/core/Data/Api/api_login.dart';
 import 'package:tnp/core/Data/Models/db_biometria.dart';
 import 'package:tnp/core/Data/Models/db_salva.dart';
 import 'package:tnp/core/Data/db_table.dart';
@@ -21,6 +22,7 @@ class ButtonLogin extends GetView<LoginController> {
     final CardController card = Get.put(CardController());
     final dbhelper = DatabaseHelper.instance;
     final dba = DatabaseHelperSave.instance;
+    final api = ApiLogin();
 
     Size _size = MediaQuery.of(context).size;
     return Container(
@@ -40,14 +42,14 @@ class ButtonLogin extends GetView<LoginController> {
                     final dbHelpersave = DatabaseHelperSave.instance.database;
                     final dbsave = await dbHelpersave;
                     var ressave = await dbsave.rawQuery("SELECT * FROM save");
-                         final dbHelper = DatabaseHelper.instance.database;
+                    final dbHelper = DatabaseHelper.instance.database;
                     final db = await dbHelper;
                     var res = await db.rawQuery("SELECT * FROM login");
                     Map<String, dynamic> row = {
-                        dbhelper.columnUser: controller.emailc.text,
-                        dbhelper.columnPassword: controller.passc.text
-                      };
-                      final id = await dbhelper.insert(row);
+                      dbhelper.columnUser: controller.emailc.text,
+                      dbhelper.columnPassword: controller.passc.text
+                    };
+                    final id = await dbhelper.insert(row);
                     if (card.recorrencia != null) {
                       print("alalalalalallala");
                       Map<String, dynamic> row = {
@@ -55,9 +57,9 @@ class ButtonLogin extends GetView<LoginController> {
                       };
                       final id = await dba.insert(row);
                     }
-               
+
                     if (res.isEmpty) {
-                         Map<String, dynamic> row = {
+                      Map<String, dynamic> row = {
                         dbhelper.columnUser: controller.emailc.text,
                         dbhelper.columnPassword: controller.passc.text
                       };
@@ -74,6 +76,8 @@ class ButtonLogin extends GetView<LoginController> {
                                 ElevatedButton(
                                   child: Text("Não"),
                                   onPressed: () {
+                                    api.postAcesso();
+                                    sleep(Duration(milliseconds: 200));
                                     onLoading(context);
                                   },
                                 ),

@@ -18,9 +18,12 @@ class register extends StatelessWidget {
     Size _size = MediaQuery.of(context).size;
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal:isPortrait==true? _size.width * 0.22: _size.width*0.35, ),
+      padding: EdgeInsets.symmetric(
+        horizontal:
+            isPortrait == true ? _size.width * 0.22 : _size.width * 0.35,
+      ),
       child: Container(
-        height: isPortrait==true?_size.height * 1: _size.height*0.4,
+        height: isPortrait == true ? _size.height * 1 : _size.height * 0.4,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,7 +32,10 @@ class register extends StatelessWidget {
                   color: AppCores.nero,
                 )),
             Container(
-              padding: EdgeInsets.only(bottom:isPortrait==true? _size.height * 0.08: _size.height*0.115),
+              padding: EdgeInsets.only(
+                  bottom: isPortrait == true
+                      ? _size.height * 0.08
+                      : _size.height * 0.115),
               child: TextButton(
                   style: TextButton.styleFrom(
                       padding: EdgeInsets.zero, minimumSize: Size(35, 15)),

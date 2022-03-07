@@ -10,7 +10,6 @@ import 'package:social_share_plugin/social_share_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class IndicateCard extends StatefulWidget {
   const IndicateCard({Key? key}) : super(key: key);
 
@@ -21,8 +20,6 @@ class IndicateCard extends StatefulWidget {
 class _IndicateCardState extends State<IndicateCard> {
   @override
   Widget build(BuildContext context) {
-
-    
     Size _size = MediaQuery.of(context).size;
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Padding(
@@ -51,7 +48,9 @@ class _IndicateCardState extends State<IndicateCard> {
             Row(
               children: [
                 Container(
-                  height:isPortrait==true? _size.height * 0.046: _size.height*0.1,
+                  height: isPortrait == true
+                      ? _size.height * 0.046
+                      : _size.height * 0.1,
                   width: 180.sp,
                   padding: EdgeInsets.all(3.sp),
                   decoration: BoxDecoration(
@@ -83,30 +82,27 @@ class _IndicateCardState extends State<IndicateCard> {
                       minimumSize:
                           MaterialStateProperty.all<Size>(Size(65.sp, 23.sp)),
                     ),
-                    onPressed: () 
-                    async
-                    {
-
-                    var prefs = await SharedPreferences.getInstance();
-                    String user=prefs.getInt("user_id").toString();
-                      SocialShare.copyToClipboard('Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.tnpbrasil.com.br/socios/public/cadastro/$user');
-                       showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Sucesso"),
-                          content: Text("Link copiado com sucesso"),
-                          actions: [
-                            ElevatedButton(
-                              child: Text("Ok"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      });
-                
+                    onPressed: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      String user = prefs.getInt("user_id").toString();
+                      SocialShare.copyToClipboard(
+                          'Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.todosnospodemos.com.br/socios/public/cadastro/$user');
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Sucesso"),
+                              content: Text("Link copiado com sucesso"),
+                              actions: [
+                                ElevatedButton(
+                                  child: Text("Ok"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            );
+                          });
                     },
                     child: Center(
                       child: Text(
@@ -119,73 +115,80 @@ class _IndicateCardState extends State<IndicateCard> {
             ),
             Row(
               children: [
-                GestureDetector
-                (
-                  child: Image(image: AssetImage('assets/whatsapp.png',),width: 22,),
-                  onTap: ()async
-                  {
-
+                GestureDetector(
+                  child: Image(
+                    image: AssetImage(
+                      'assets/whatsapp.png',
+                    ),
+                    width: 22,
+                  ),
+                  onTap: () async {
                     var prefs = await SharedPreferences.getInstance();
-                    String user=prefs.getInt("user_id").toString();
-                     await launch('https://api.whatsapp.com/send?text=Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.tnpbrasil.com.br/socios/public/cadastro/$user');                   
+                    String user = prefs.getInt("user_id").toString();
+                    await launch(
+                        'https://api.whatsapp.com/send?text=Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.todosnospodemos.com.br/socios/public/cadastro/$user');
                   },
                 ),
-                SizedBox(width: _size.width*0.03,),
-
-                GestureDetector
-                (
-                  child: Image(image: AssetImage('assets/facebook.png',),width: 22,),
-                  onTap: ()async
-                  {
-
+                SizedBox(
+                  width: _size.width * 0.03,
+                ),
+                GestureDetector(
+                  child: Image(
+                    image: AssetImage(
+                      'assets/facebook.png',
+                    ),
+                    width: 22,
+                  ),
+                  onTap: () async {
                     var prefs = await SharedPreferences.getInstance();
-                    String user=prefs.getInt("user_id").toString();
-                   
-                
-                 String url = 'https://www.tnpbrasil.com.br/socios/public/cadastro/$user';
-                final quote =
-                    'Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - ';
-                final result = await SocialSharePlugin.shareToFeedFacebookLink(
-                  quote: quote,
-                  url: url,
-                  onSuccess: (_) {
-                    print('FACEBOOK SUCCESS');
-                    return;
-                  },
-                  onCancel: () {
-                    print('FACEBOOK CANCELLED');
-                    return;
-                  },
-                  onError: (error) {
-                    print('FACEBOOK ERROR $error');
-                    return;
-                  },
-                );
+                    String user = prefs.getInt("user_id").toString();
+
+                    String url =
+                        'https://www.todosnospodemos.com.br/socios/public/cadastro/$user';
+                    final quote =
+                        'Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - ';
+                    final result =
+                        await SocialSharePlugin.shareToFeedFacebookLink(
+                      quote: quote,
+                      url: url,
+                      onSuccess: (_) {
+                        print('FACEBOOK SUCCESS');
+                        return;
+                      },
+                      onCancel: () {
+                        print('FACEBOOK CANCELLED');
+                        return;
+                      },
+                      onError: (error) {
+                        print('FACEBOOK ERROR $error');
+                        return;
+                      },
+                    );
                   },
                 ),
-
                 IconButton(
-                  onPressed: () async
-                  {
-                       var prefs = await SharedPreferences.getInstance();
-                    String user=prefs.getInt("user_id").toString();
-                   String url = 'Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.tnpbrasil.com.br/socios/public/cadastro/$user';
-                
-                final result = await SocialSharePlugin.shareToFeedFacebookLink(
-                  url: url,
-                  onSuccess: (_) {
-                    print('FACEBOOK SUCCESS');
-                    return;
-                  },
-                  onCancel: () {
-                    print('FACEBOOK CANCELLED');
-                    return;
-                  },
-                  onError: (error) {
-                    print('FACEBOOK ERROR $error');
-                    return;
-                  },
-                );
+                  onPressed: () async {
+                    var prefs = await SharedPreferences.getInstance();
+                    String user = prefs.getInt("user_id").toString();
+                    String url =
+                        'Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.todosnospodemos.com.br/socios/public/cadastro/$user';
+
+                    final result =
+                        await SocialSharePlugin.shareToFeedFacebookLink(
+                      url: url,
+                      onSuccess: (_) {
+                        print('FACEBOOK SUCCESS');
+                        return;
+                      },
+                      onCancel: () {
+                        print('FACEBOOK CANCELLED');
+                        return;
+                      },
+                      onError: (error) {
+                        print('FACEBOOK ERROR $error');
+                        return;
+                      },
+                    );
                   },
                   icon: Icon(
                     FontAwesomeIcons.facebookMessenger,
@@ -194,27 +197,29 @@ class _IndicateCardState extends State<IndicateCard> {
                   ),
                   splashRadius: 1,
                 ),
-                GestureDetector(child: Image(image: AssetImage('assets/twitter.png'), width: 25,
-                ),
-                onTap: ()async
-                {
-
+                GestureDetector(
+                  child: Image(
+                    image: AssetImage('assets/twitter.png'),
+                    width: 25,
+                  ),
+                  onTap: () async {
                     var prefs = await SharedPreferences.getInstance();
-                    String user=prefs.getInt("user_id").toString();
-                   String url = 'Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.tnpbrasil.com.br/socios/public/cadastro/$user';
-                
-                final result = await SocialSharePlugin.shareToTwitterLink(
-                  url: url,
-                  onSuccess: (_) {
-                    print('FACEBOOK SUCCESS');
-                    return;
+                    String user = prefs.getInt("user_id").toString();
+                    String url =
+                        'Parabéns, você recebeu uma indicação para conhecer a TNP. Faça parte da melhor comunidade que conecta pessoas, gera negócios e ajuda pessoas no país. - https://www.todosnospodemos.com.br/socios/public/cadastro/$user';
+
+                    final result = await SocialSharePlugin.shareToTwitterLink(
+                      url: url,
+                      onSuccess: (_) {
+                        print('FACEBOOK SUCCESS');
+                        return;
+                      },
+                      onCancel: () {
+                        print('FACEBOOK CANCELLED');
+                        return;
+                      },
+                    );
                   },
-                  onCancel: () {
-                    print('FACEBOOK CANCELLED');
-                    return;
-                  },
-                );
-                },
                 ),
               ],
             )

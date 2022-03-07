@@ -26,6 +26,7 @@ onLoading(BuildContext context) {
   final LoginController controller = Get.put(LoginController());
   final CardController card = Get.put(CardController());
   final api = ApiLogin();
+
   final api_quotas = ApiQuotas();
   final deletes = ApigetdataDelete();
   final api_extract = ApiExtract();
@@ -34,8 +35,7 @@ onLoading(BuildContext context) {
   final api_saldo = Apisaldo();
   final apicat = ApiCategoryDelete();
   final dbhelper = DatabaseHelper.instance;
-  
-    
+
   String urlToken = Urls.urlLogin;
   showDialog(
       context: context,
@@ -61,16 +61,14 @@ onLoading(BuildContext context) {
     bool acesso = (prefs.getBool("acesso"));
     bool senha = (prefs.getBool("pass"));
     if (acesso == true) {
-     
       api_saldo.postSaldo();
       if (senha) {
         onLoadingH(context);
-       // Get.toNamed(Routes.home);
-        
+        // Get.toNamed(Routes.home);
+
       } else {
         Get.toNamed(Routes.registerFourPasSing);
         print(senha);
-        
       }
     } else {
       Navigator.pop(context);
@@ -79,7 +77,7 @@ onLoading(BuildContext context) {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("Erro login"),
-              content: Text("Email ou senha invalidos"),
+              content: Text(acesso.toString()),
               actions: [
                 TextButton(
                   child: Text("Ok"),

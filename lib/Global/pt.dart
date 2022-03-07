@@ -18,7 +18,7 @@ abstract class PurchaseTexts {
   static const informPurchasePrice = 'Informe o valor da compra';
   static const informPassword = 'Informe a senha de 4 dígitos';
   static const indicateFriends = 'Indique amigos e ganhe por isso';
-  static const link = 'https://tnpbrasil.com.br/socios/public/caaaaaa';
+  static const link = 'https://todosnospodemos.com.br/socios/public/caaaaaa';
   static const copyLink = 'Copiar Link';
 }
 

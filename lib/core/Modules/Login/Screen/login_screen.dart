@@ -51,10 +51,7 @@ class _LoginState extends State<Login> {
   Future<void> _getAvailableBiometrics() async {
     List<BiometricType> availableBiometric;
     try {
-      availableBiometric = await auth.getAvailableBiometrics
-      (
-        
-      );
+      availableBiometric = await auth.getAvailableBiometrics();
     } on PlatformException catch (e) {
       print(e);
     }
@@ -67,26 +64,25 @@ class _LoginState extends State<Login> {
   Future<void> _authenticate() async {
     bool authenticated = false;
 
-      authorized = authenticated ? "Sucesso autherized" : "Falha ao autenticar";
-      final dbHelperbio = DatabaseHelperBio.instance.database;
-      final dbbio = await dbHelperbio;
-      var resbio = await dbbio.rawQuery("SELECT * FROM bio");
+    authorized = authenticated ? "Sucesso autherized" : "Falha ao autenticar";
+    final dbHelperbio = DatabaseHelperBio.instance.database;
+    final dbbio = await dbHelperbio;
+    var resbio = await dbbio.rawQuery("SELECT * FROM bio");
     try {
       authenticated = await auth.authenticateWithBiometrics(
           localizedReason: "Digitalize sua impressão digital para autenticar",
-          androidAuthStrings: AndroidAuthMessages(signInTitle: 'Autorizaçao necessaria'),
+          androidAuthStrings:
+              AndroidAuthMessages(signInTitle: 'Autorizaçao necessaria'),
           useErrorDialogs: true,
           stickyAuth: true);
     } on PlatformException catch (e) {
       print(e);
     }
     if (!mounted) return;
-    setState(()  {
-      if (resbio.isNotEmpty&& authenticated) {
+    setState(() {
+      if (resbio.isNotEmpty && authenticated) {
         onLoading(context);
       }
-
-      
     });
   }
 
@@ -95,7 +91,6 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    
   }
 
   @override
@@ -128,21 +123,21 @@ class _LoginState extends State<Login> {
                     onPressed: () {
                       _authenticate();
 
-                      //contro.checkBiometric();
-                      //Get.to(AuthApp());
+                      contro.checkBiometric();
+                      Get.to(AuthApp());
                     },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: _size.height * 0.9),
-                  child: register(
-                    textoClicavel: LoginTexts.clickLink,
-                    textoComum: LoginTexts.sigIn,
-                    function: () async {
-                      Get.toNamed(Routes.signup);
-                    },
-                  ),
-                ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: _size.height * 0.9),
+                //   child: register(
+                //     textoClicavel: LoginTexts.clickLink,
+                //     textoComum: LoginTexts.sigIn,
+                //     function: () async {
+                //       Get.toNamed(Routes.signup);
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

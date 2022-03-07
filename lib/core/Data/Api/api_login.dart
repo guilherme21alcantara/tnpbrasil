@@ -17,7 +17,6 @@ class ApiLogin extends GetView<LoginController> {
   static String urlToken = Urls.urlLogin;
   final api = ApiQuotas();
 
-  
 //POST_LOGIN
   postAcesso() async {
     // ignore: unnecessary_string_interpolations
@@ -26,20 +25,29 @@ class ApiLogin extends GetView<LoginController> {
       'Content-Type': 'multipart/form-data',
       'Accept': 'application/json',
     };
-    print(controller.emailController.text+'a');
+    print(controller.emailc.text + 'a');
     var usuario;
     var prefs = await SharedPreferences.getInstance();
     var request = http.MultipartRequest("POST", Uri.parse(url));
-    request.fields['login'] = controller.emailController.text==''? controller.emailc.text ==''?controller.e.text:controller.emailc.text: controller.emailController.text;
-    request.fields['password'] = controller.passwordController.text==''? controller.passc.text==''? controller.p.text:controller.passc.text:controller.passwordController.text;
+    request.fields['login'] = controller.emailController.text == ''
+        ? controller.emailc.text == ''
+            ? controller.e.text
+            : controller.emailc.text
+        : controller.emailController.text;
+    request.fields['password'] = controller.passwordController.text == ''
+        ? controller.passc.text == ''
+            ? controller.p.text
+            : controller.passc.text
+        : controller.passwordController.text;
     request.headers.addAll(headers);
 
     http.Response response =
         await http.Response.fromStream(await request.send());
     var mapResponse = json.decode(response.body);
+    prefs.setBool('acesso', true);
     if (response.statusCode == 200) {
       usuario = autenticar.fromJson(mapResponse);
-      prefs.setBool('acesso', true);
+
       prefs.setString("token", mapResponse["token"]);
       prefs.setInt("expires_in", mapResponse["expires_in"]);
       prefs.setInt("user_id", mapResponse["user_id"]);

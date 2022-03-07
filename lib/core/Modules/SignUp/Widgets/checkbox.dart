@@ -44,36 +44,32 @@ class _CustomCheckboxTermState extends State<CustomCheckboxTerm> {
             setState(() {
               isChecked = value!;
             });
-            if(isChecked)
-            {
-              showDialog(context: context, builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Termos de uso"),
-                          content: Text("Deseja ler os termos de uso?"),
-                          actions: [
-                            ElevatedButton(
-                              child: Text("Não"),
-                              onPressed: ()async {
-                              Navigator.pop(context);    
-                                
-                              },
-                            ),
-                            ElevatedButton(
-                              child: Text("Sim"),
-                              onPressed: ()async {
-                                await launch('https://tnpbrasil.com.br/politica-de-privacidade-2/');                   
-                                
-                              },
-                            ),
-                            
-                            
-                          ],
-                        );
-                      });
-              
-            }else
-            {
-             //controller.recorrencia = false;
+            if (isChecked) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Termos de uso"),
+                      content: Text("Deseja ler os termos de uso?"),
+                      actions: [
+                        ElevatedButton(
+                          child: Text("Não"),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        ElevatedButton(
+                          child: Text("Sim"),
+                          onPressed: () async {
+                            await launch(
+                                'https://todosnospodemos.com.br/politica-de-privacidade-2/');
+                          },
+                        ),
+                      ],
+                    );
+                  });
+            } else {
+              //controller.recorrencia = false;
             }
           },
         ),

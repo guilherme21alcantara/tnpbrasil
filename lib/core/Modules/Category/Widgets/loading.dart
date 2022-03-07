@@ -15,12 +15,12 @@ import 'package:tnp/core/Modules/Purchase/Controller/purchase.dart';
 
 onLoadingH(BuildContext context) {
   final api_category = ApiCategory();
-  final api_getdata =Apigetdata();
+  final api_getdata = Apigetdata();
   final quotas = ApiQuotas();
   final api = Apisaldo();
   final api_extract = ApiExtract();
   final PurchaseController controller = Get.put(PurchaseController());
-  
+
   showDialog(
       context: context,
       barrierDismissible: false,
@@ -37,7 +37,6 @@ onLoadingH(BuildContext context) {
   api_getdata.postgetdata();
   api.postSaldo();
 
-
   sleep(Duration(milliseconds: 200));
   api_category.getCategory();
   sleep(Duration(milliseconds: 200));
@@ -48,7 +47,6 @@ onLoadingH(BuildContext context) {
     if (acesso == true) {
       Get.toNamed(Routes.home);
       quotas.postQuotas();
-      
     } else {
       Navigator.pop(context);
       showDialog(
@@ -56,7 +54,7 @@ onLoadingH(BuildContext context) {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("Erro login"),
-              content: Text("Email ou senha invalidos"),
+              content: Text("Email ou senha invalidos caralho"),
               actions: [
                 TextButton(
                   child: Text("Ok"),
